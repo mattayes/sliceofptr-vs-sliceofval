@@ -27,9 +27,22 @@ func processSliceOfValues(elems []Data) {
 	}
 }
 
+func processSliceOfValuesCopy(elems []Data) {
+	for i, elem := range elems {
+		elems[i] = doSomeMath(elem)
+	}
+}
+
 func processSliceOfPointers(elems []*Data) {
 	for i := range elems {
 		*elems[i] = doSomeMath(*elems[i])
+	}
+}
+
+func processSliceOfPointersCopy(elems []*Data) {
+	for i, elem := range elems {
+		e := doSomeMath(*elem)
+		elems[i] = &e
 	}
 }
 

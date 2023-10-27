@@ -1,9 +1,62 @@
-> go test -bench . -benchmem
-goos: windows
+> go test -bench . -benchmem -gcflags=-m
+
+# slices.wtf [slices.wtf.test]
+/sliceofptr-vs-sliceofval/main.go:33:6: can inline doSomeMath
+/sliceofptr-vs-sliceofval/main.go:8:6: can inline processSliceOfValues
+/sliceofptr-vs-sliceofval/main.go:10:24: inlining call to doSomeMath
+/sliceofptr-vs-sliceofval/main.go:14:6: can inline processSliceOfPointers
+/sliceofptr-vs-sliceofval/main.go:16:25: inlining call to doSomeMath
+/sliceofptr-vs-sliceofval/main.go:20:6: can inline processSliceOfValuesCopy
+/sliceofptr-vs-sliceofval/main.go:22:24: inlining call to doSomeMath
+/sliceofptr-vs-sliceofval/main.go:26:6: can inline processSliceOfPointersCopy
+/sliceofptr-vs-sliceofval/main.go:28:18: inlining call to doSomeMath
+/sliceofptr-vs-sliceofval/slice_test.go:31:6: can inline BenchmarkSliceOfValues
+/sliceofptr-vs-sliceofval/slice_test.go:33:23: inlining call to processSliceOfValues
+/sliceofptr-vs-sliceofval/slice_test.go:33:23: inlining call to doSomeMath
+/sliceofptr-vs-sliceofval/slice_test.go:37:6: can inline BenchmarkSliceOfPointers
+/sliceofptr-vs-sliceofval/slice_test.go:39:25: inlining call to processSliceOfPointers
+/sliceofptr-vs-sliceofval/slice_test.go:39:25: inlining call to doSomeMath
+/sliceofptr-vs-sliceofval/slice_test.go:43:6: can inline BenchmarkSliceOfValuesCopy
+/sliceofptr-vs-sliceofval/slice_test.go:45:27: inlining call to processSliceOfValuesCopy
+/sliceofptr-vs-sliceofval/slice_test.go:45:27: inlining call to doSomeMath
+/sliceofptr-vs-sliceofval/slice_test.go:49:6: can inline BenchmarkSliceOfPointersCopy
+/sliceofptr-vs-sliceofval/slice_test.go:51:29: inlining call to processSliceOfPointersCopy
+/sliceofptr-vs-sliceofval/slice_test.go:51:29: inlining call to doSomeMath
+/sliceofptr-vs-sliceofval/main.go:8:27: elems does not escape
+/sliceofptr-vs-sliceofval/main.go:14:29: elems does not escape
+/sliceofptr-vs-sliceofval/main.go:20:31: elems does not escape
+/sliceofptr-vs-sliceofval/main.go:26:33: elems does not escape
+/sliceofptr-vs-sliceofval/main.go:28:3: moved to heap: e
+/sliceofptr-vs-sliceofval/slice_test.go:16:24: make([]*Data, 0, sliceSize) escapes to heap
+/sliceofptr-vs-sliceofval/slice_test.go:17:22: make([]Data, 0, sliceSize) escapes to heap
+/sliceofptr-vs-sliceofval/slice_test.go:20:8: &Data{...} escapes to heap
+/sliceofptr-vs-sliceofval/slice_test.go:31:29: b does not escape
+/sliceofptr-vs-sliceofval/slice_test.go:37:31: b does not escape
+/sliceofptr-vs-sliceofval/slice_test.go:43:33: b does not escape
+/sliceofptr-vs-sliceofval/slice_test.go:49:35: b does not escape
+/sliceofptr-vs-sliceofval/slice_test.go:51:29: moved to heap: e
+# slices.wtf.test
+/sliceofptr-vs-sliceofval/_testmain.go:45:6: can inline init.0
+/sliceofptr-vs-sliceofval/_testmain.go:85:24: inlining call to testing.MainStart
+/sliceofptr-vs-sliceofval/_testmain.go:52:43: leaking param: dir
+/sliceofptr-vs-sliceofval/_testmain.go:52:55: leaking param: cfile
+/sliceofptr-vs-sliceofval/_testmain.go:52:69: leaking param: cmode
+/sliceofptr-vs-sliceofval/_testmain.go:52:83: leaking param: cpkgs
+/sliceofptr-vs-sliceofval/_testmain.go:55:29: leaking param: mode
+/sliceofptr-vs-sliceofval/_testmain.go:55:42: leaking param: tearDown
+/sliceofptr-vs-sliceofval/_testmain.go:55:113: leaking param: snapcov
+/sliceofptr-vs-sliceofval/_testmain.go:63:20: leaking param: coverprofile
+/sliceofptr-vs-sliceofval/_testmain.go:63:41: leaking param: gocoverdir
+/sliceofptr-vs-sliceofval/_testmain.go:85:42: testdeps.TestDeps{} escapes to heap
+/sliceofptr-vs-sliceofval/_testmain.go:85:24: &testing.M{...} escapes to heap
+goos: darwin
 goarch: amd64
 pkg: slices.wtf
-cpu: AMD Ryzen 7 7700 8-Core Processor
-BenchmarkSliceOfValues-16           1330            895403 ns/op               0 B/op          0 allocs/op
-BenchmarkSliceOfPointers-16         1438            822699 ns/op               0 B/op          0 allocs/op
+cpu: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+BenchmarkSliceOfValues-12          	     165	  36019768 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSliceOfPointers-12        	     159	  37314514 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSliceOfValuesCopy-12      	     164	  36417851 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSliceOfPointersCopy-12    	      85	  65684514 ns/op	16000025 B/op	 1000000 allocs/op
 PASS
-ok      slices.wtf      2.718s
+coverage: 100.0% of statements
+ok  	slices.wtf	35.277s

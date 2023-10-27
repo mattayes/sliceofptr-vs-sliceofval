@@ -39,3 +39,15 @@ func BenchmarkSliceOfPointers(b *testing.B) {
 		processSliceOfPointers(sliceOfPointers)
 	}
 }
+
+func BenchmarkSliceOfValuesCopy(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		processSliceOfValuesCopy(sliceOfValues)
+	}
+}
+
+func BenchmarkSliceOfPointersCopy(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		processSliceOfPointersCopy(sliceOfPointers)
+	}
+}
